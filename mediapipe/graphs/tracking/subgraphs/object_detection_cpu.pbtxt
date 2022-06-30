@@ -107,7 +107,7 @@ node {
   node_options: {
     [type.googleapis.com/mediapipe.NonMaxSuppressionCalculatorOptions] {
       min_suppression_threshold: 0.4
-      max_num_detections: 3
+      max_num_detections: 30
       overlap_type: INTERSECTION_OVER_UNION
       return_empty_detections: true
     }

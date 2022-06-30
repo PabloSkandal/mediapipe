@@ -7,6 +7,9 @@
 #include "mediapipe/framework/port/status.h"
 #include "mediapipe/framework/formats/image_frame.h"
 #include "mediapipe/framework/formats/detection.pb.h"
+#include "mediapipe/framework/port/opencv_highgui_inc.h"
+#include "mediapipe/framework/port/opencv_imgproc_inc.h"
+#include "mediapipe/framework/port/opencv_video_inc.h"
 
 namespace mediapipe {
 constexpr char kInputStream[] = "input_video";
@@ -54,8 +57,11 @@ std::vector<Detection> MediapipeImpl::Process(uint8_t* data, int width, int heig
                                                                 (uint8*)data, ImageFrame::PixelDataDeleter::kNone);
 
     m_frame_timestamp++;
+    
+    
+    size_t frame_timestamp_us = (double)cv::getTickCount() / (double)cv::getTickFrequency() * 1e6;
 
-    if (!m_graph.AddPacketToInputStream(kInputStream, mediapipe::Adopt(input_frame_for_input.release()).At(mediapipe::Timestamp(m_frame_timestamp))).ok()) {
+    if (!m_graph.AddPacketToInputStream(kInputStream, mediapipe::Adopt(input_frame_for_input.release()).At(mediapipe::Timestamp(frame_timestamp_us))).ok()) {
         LOG(INFO) << "Failed to add packet to input stream. Call m_graph.WaitUntilDone() to see error (or destroy Mediapipe object)";
         return {};
     }
