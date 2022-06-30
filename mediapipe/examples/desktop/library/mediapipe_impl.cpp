@@ -10,7 +10,7 @@
 
 namespace mediapipe {
 constexpr char kInputStream[] = "input_video";
-constexpr char kOutputStream[] = "output_detections";
+constexpr char kOutputStream[] = "tracked_detections";
 
 MediapipeImpl::~MediapipeImpl() 
 {
