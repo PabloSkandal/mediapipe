@@ -9,7 +9,7 @@ namespace mediapipe {
 class DLLEXPORT MediapipeImpl : public Mediapipe {
 public:
     MediapipeImpl(){}
-    ~MediapipeImpl();
+    virtual ~MediapipeImpl() override;
 
     absl::Status Init(const std::string& graph);
 
